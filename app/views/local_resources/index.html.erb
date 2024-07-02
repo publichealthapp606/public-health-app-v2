@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Local resources</h1>
+
+<%= link_to "New local resource", new_local_resource_path %>
+<br/><br/>
+
+<div id="local_resources">
+  <% @local_resources.each do |local_resource| %>
+    <%= render local_resource %>
+    <p>
+      <%= link_to "Show this local resource", local_resource %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New local resource", new_local_resource_path %>

@@ -1,0 +1,107 @@
+<div style="float: right; margin-top: 10px;">
+
+  <form id="searchForm" action="/resources" method="get">
+    <label style="font-size: 15px; margin-left: 10px; padding-top: 139px;" for="search">Search</label>
+    <input style = "width: calc(78% - 24px);" type="text" id="search" name="query">
+    <br>
+    <label style="font-size: 15px; margin-left: 10px;" for="rangeInput">Range:</label>
+    <input style="width: 190px; margin-left: 5px;" type="range" id="rangeInput" name="range" min="0" max="100" step="10" >
+    <br>
+    <button style="margin-left: 118px; font-size: 13px" type="submit">Search</button>
+  </form>
+</div>
+<div class="container pt-5">
+<p style="color: green"><%= notice %></p>
+<div class="pb-2"><h2 style="padding-top: 10px !important;" class="style-colour">Local Resources Near User Zip Code(<%= current_user.zip %>) </h2></div>
+<div id="resources">
+  <%#= js_map @geocoded_data %>
+  
+
+<style>
+  .label
+  {
+    font-size: 15px;
+  }
+  .local-resources-list{
+    word-wrap: break-word;
+  }
+  .h2, h2 {
+    font-size: 2rem;
+  }
+</style>
+<% if @local_resources.present? %>
+  <% @local_resources.each_with_index do |resource, index| %>
+    <h2>
+    <%= "#{index + 1}. #{resource.name}" %>
+      <% if resource.is_partner %>
+        <span class="partner-status"><b>(partner)</b></span>
+      <% end %>
+    </h2>
+    <ul class="local-resources-list">
+      <% if resource.website.present? %>
+        <li>
+          Website: <%= link_to "#{resource.website}", "#{resource.website}", target: :_blank %>
+        </li>
+      <% end %>
+      <% if resource.phone_number.present? %>
+        <li>
+          Phone Number: <%= resource.phone_number %>
+        </li>
+      <% end %>
+      <% if resource.email.present? %>
+        <li>
+          Email: <%= link_to "#{resource.email}", "mailto:#{resource.email}"%>
+        </li>
+      <% end %>
+      <% if resource.address.present? %>
+        <li>
+          Address: <%= link_to "#{resource.address}", "https://www.google.com/maps/dir/?api=1&destination=#{CGI.escape(resource.address)}",target: :_blank  %>
+        </li>
+      <% end %>
+      <div>
+        <% feedback = Feedback.find_by(local_resource_id: resource.id, user_id: current_user.id) %>
+        <% if feedback.present? %>
+          <p style="color: darkslateblue;">Review Submitted</p>
+        <% else %>
+          <%= render 'feedbacks/form', feedback: Feedback.new, params: {local_resource_id: resource.id, user_id: current_user.id} %>
+        <% end %>
+      </div>
+    </ul>
+  <% end %>
+<% else %>
+  <% if flash[:alert].present? %>
+    <p style="color: red;"><%= flash[:alert] %></p>
+  <% end %>
+<% end %>
+
+<br>
+<br>
+</div>
+<h5> Please select a category to see the external resources</h5>
+<%= form_tag resources_path(category: @category), method: :get do %>
+  <%= select_tag :category, options_for_select(SearchItem.distinct.pluck(:category)) %>
+  <%= submit_tag "Choose a Category" %>
+<% end %>
+<% category = params[:category].presence || "Food Security" %>
+<% phrase = SearchItem.find_by(category: category).phrase %>
+<h5> Google Search Results for "<%=phrase %> near <%=current_user.zip %>" </h5>
+<%= link_to "#{category} Resources", "https://www.google.com/maps/search/#{phrase.gsub(" ", "+").gsub("/", "%2F")}+near+#{CGI.escape(current_user.zip)}", target: :_blank %>
+<% if category == "Food Security" %>
+  <h5> 211texas Search Results for "<%=phrase %> near <%=current_user.zip %>" </h5>
+
+  <%= link_to "#{category} Resources", "https://www.211texas.org/guided_search/?ds=#{CGI.escape('{"service\\\\service_taxonomy\\\\module_servicepost":{"value":[{"taxonomy_id":7},{"taxonomy_id":8},{"taxonomy_id":11}],"operator":["contains_array"]},"site\\\\site_addressus\\\\site_addressus":{"site\\\\site_addressus\\\\site_addressus\\\\zip":{"value":"' + current_user.zip.to_s + '","operator":["orderbyasc"]}},"agency\\\\agency_system\\\\name":{"value":"VLTEST","operator":["notequals"]}}')}", target: "_blank" %>
+<% end %>
+</div>
+
+<script>
+  window.onload = function() {
+      window.history.replaceState({}, document.title, window.location.pathname);
+  };
+</script>
+<style>
+ .partner-status {
+    color: #cd1749;
+    font-size: large;
+    font-family: ui-sans-serif;
+  }
+</style>

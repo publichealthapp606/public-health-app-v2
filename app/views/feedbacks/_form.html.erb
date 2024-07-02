@@ -1,0 +1,32 @@
+<%= form_with(model: @feedback, url: feedbacks_path, local: true, class: 'feedback-form') do |form| %>
+  <%= form.check_box :receiving_support, class: 'receiving-support' %>
+  <%= form.label :receiving_support, "Are you receiving any support?", for: 'receiving_support' %>
+  <%= form.hidden_field :local_resource_id, value: params[:local_resource_id] %>
+  <%= form.hidden_field :user_id, value: params[:user_id] %>
+
+  <%= form.check_box :contacted_local_resources, class: 'contacted-local-resources' %>
+  <%= form.label :contacted_local_resources, "Have you contacted any local resources?", for: 'contacted_local_resources' %>
+  <br>
+  <%= form.submit 'Save', class: 'submit-button', style: 'display: none;' %>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('.feedback-form');
+
+    forms.forEach(function(form) {
+      const checkboxes = form.querySelectorAll('.receiving-support, .contacted-local-resources');
+      const submitButton = form.querySelector('.submit-button');
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          if (form.querySelector('.receiving-support').checked || form.querySelector('.contacted-local-resources').checked) {
+            submitButton.style.display = 'inline-block';
+          } else {
+            submitButton.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script>

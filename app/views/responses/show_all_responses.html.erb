@@ -1,0 +1,28 @@
+<div class="container pt-5">
+  <% if @responses.present? %>
+    <table class="table table-light table-borderless">
+      <thead class="thead-light">
+        <tr>
+          <th>Question</th>
+          <th>Response</th>
+          <th>Date And Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @responses.each_with_index do |response, index| %>
+          <tr>
+            <td><%= Question.find_by(question_number: response.question_number).question_text %></td>
+            <td><%= response.response_option_number.nil? ? "" : Question.find_by(question_number: response.question_number).options_list[response.response_option_number] %></td>
+            <td><%= response.time_submitted.strftime("%d-%m-%Y %H:%M:%S") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <%= link_to 'Back to Surveys', surveys_path %>
+  <% else %>
+    <h2 class="style-colour"> No Record of Completing the "<b><%= @survey.survey_name%></b>" Survey</h2>
+    <br>
+    <%= link_to 'Back to Surveys', surveys_path %>
+    <br>
+  <% end %>
+</div>

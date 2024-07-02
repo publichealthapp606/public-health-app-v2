@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+  
+    <a class="navbar-brand" href="/">
+      <%= image_tag('new_logo.png', class: "logo-img") %>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      >
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse rightMenu" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item">
+              <%= link_to "Home", root_path, class: 'nav-link white-text' %>
+          </li>
+          <li class="nav-item">
+              <%= link_to "About Us", about_us_path, class: 'nav-link white-text' %>
+          </li>
+          <li class="nav-item">
+              <%= link_to "Contact Us", contact_us_path, class: 'nav-link white-text' %>
+          </li>
+          <li class="nav-item">
+              <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link white-text btn btn-primary' %>
+          </li>
+        <% else %>
+            <li class="nav-item">
+                <%= link_to 'Sign In', new_user_session_path, class: 'nav-link white-text btn btn-primary' %>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'Register', new_user_registration_path, class: 'nav-link white-text btn btn-primary' %>
+            </li>
+        <% end %>
+    </ul>
+      <%# <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"
+            >About the Challenge</a
+            >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Final in South Africa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> FAQs </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> Tournament Date </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> Log in </a>
+        </li>
+      </ul> %>
+      <%# <a class="btn btn-primary register" href="#">Register</a> %>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav-link{
+
+    margin-right: 16px;
+  }
+  .logo-img {
+    max-width: 214px; /* Adjust the maximum width as needed */
+    max-height: 196px; /* Adjust the maximum height as needed */
+  }
+
+</style>

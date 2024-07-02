@@ -1,0 +1,117 @@
+@import "bootstrap";
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+// @import "trestle/custom/my_custom_css";
+
+$white-color: #cccccc;
+$bg-background: #595f63;
+
+.navbar {
+  background-color: $bg-background !important;
+  a {
+    color: $white-color !important;
+    text-decoration: none;
+  }
+}
+
+form .form-group {
+  input[type="text"] {
+    width: 100%;
+  }
+  input[type="password"] {
+    width: 100%;
+  }
+  input[type="email"] {
+    width: 100%;
+  }
+  input[type="number"] {
+    width: 100%;
+  }
+  input[type="url"] {
+    width: 100%;
+  }
+  input[type="tel"] {
+    width: 100%;
+  }
+  input[type="date"] {
+    width: 100%;
+  }
+  input[type="time"] {
+    width: 100%;
+  }
+  textarea {
+    width: 100%;
+  }
+}
+
+.button-container {
+  text-align: center;
+  color: ghostwhite;
+  font-family: ui-serif;
+}
+
+.button-container form {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+label{
+  font-size: small;
+}
+
+
+
+.background-image-container {
+    background-image: url('/assets/pink2-db19a38ae036df1051ad04f3fa2ab97c3182a35e88cce0c58021ff40814bb43b.avif') !important;
+    background-size: 250px 250px;
+    background-size: cover;
+    background-position: center;
+}
+
+.navbar {
+  background-color: rgb(14, 6, 6) !important;
+  height: 60;
+}
+.nav-item .nav-link
+{
+  color: black !important;
+}
+.navbar-brand
+{
+  background-color: transparent !important; 
+}
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+.list
+{
+  padding-top: 5rem !important;
+  padding-left: 3rem !important;
+
+}
+
+.style-colour
+{
+  color: black;
+  font-family: serif;
+}
+
+.list-1
+{
+  padding-top: 5rem !important;
+  padding-left: 3rem !important;
+}

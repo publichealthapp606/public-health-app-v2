@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="surveys" class="container">
+  <h1  class="style-colour text-center">Surveys</h1>
+  <br>
+  <table class="table table-light table-borderless">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Survey Name</th>
+        <th scope="col">Survey Category</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @surveys.each do |survey| %>
+        <tr>
+          <td><%= survey.survey_name %></td>
+          <td><%= survey.survey_category %></td>
+          <td><%= link_to "Take Survey", select_language_survey_path(survey) %></td>
+          <td><%= link_to "Recent Response", survey_responses_path(survey) %></td>
+          <td><%= link_to "See All Responses", show_all_responses_path(survey_id: survey.id) %></td>
+          <td><%= link_to "See Resources", resources_path(category: survey.survey_category) %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

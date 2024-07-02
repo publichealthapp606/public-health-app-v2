@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @local_resource %>
+
+<div>
+  <%= link_to "Edit this local resource", edit_local_resource_path(@local_resource) %> |
+  <%= link_to "Back to local resources", local_resources_path %>
+
+  <%= button_to "Destroy this local resource", @local_resource, method: :delete %>
+</div>

@@ -1,0 +1,13 @@
+<title>Select Language</title>
+
+<div class="list-1">
+  <h1 class="mb-4 style-colour">Select Language</h1>
+
+  <ul class="list-group">
+    <% @languages.each do |language| %>
+      <li class="text-black mb-2">
+        <%= link_to language, get_questions_path(survey_id: @survey.id, language: language), class: "text-black" %>
+      </li>
+    <% end %>
+  </ul>
+</div>

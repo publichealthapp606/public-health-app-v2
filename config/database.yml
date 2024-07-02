@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: chinmay10
+  host: localhost
+
+development:
+  <<: *default
+  database: public_health_dev2
+
+test:
+  <<: *default
+  database: myapp_test1
+
+production:
+  <<: *default
+  url: <%= ENV.fetch('DATABASE_URL', '') %>
