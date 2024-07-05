@@ -19,6 +19,7 @@ ActiveAdmin.register LocalResource do
     selectable_column
     id_column
     column :name
+    column :zip
     column :email
     column :phone_number
     column :is_partner
